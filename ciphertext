@@ -1,0 +1,54 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        // write your code here
+        Scanner input = new Scanner(System.in);
+
+        int k = 0;
+        String text = "";
+        do {
+            System.out.print("rotation: ");
+            k = input.nextInt();
+            if (k > 25) {
+                System.out.println("Too High");
+            } else if (k < 1) {
+                System.out.println("Too Low");
+            }
+        } while (k > 25 || k < 1);
+        System.out.println("Success");
+
+        do {
+            System.out.print("Enter your message: ");
+            text = input.nextLine();
+        }while (text.equals(""));
+
+        String message = encode(text.toLowerCase(),k);
+        System.out.println("ciphertext: " + message);
+
+    }
+
+    static String encode(String ciphertext, int rotation){
+        String Text = "";
+        for (int i = 0; i < ciphertext.length(); i++) {
+            int letters = ciphertext.charAt(i);
+            if (letters > 122 || letters < 65) {
+                char NewLetter = (char) letters;
+                Text += NewLetter;
+            } else {
+                int rotatedLet = letters + rotation;
+
+                if (rotatedLet > 122) {
+                    rotatedLet = (rotatedLet - 97) % 26 +97;
+                }
+                char NewLetter = (char) rotatedLet;
+                Text += NewLetter;
+            }
+
+        }
+        return Text;
+    }
+}
